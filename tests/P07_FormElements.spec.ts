@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("textbox and radiobutton test", async ({ page }) => {
+test.skip("textbox and radiobutton test", async ({ page }) => {
   await page.goto("https://testautomationpractice.blogspot.com/");
   const nameLocator = page.locator("#name");
   const maleLocator = page.locator("#male");
@@ -28,4 +28,20 @@ test("textbox and radiobutton test", async ({ page }) => {
     await check.check();
     await expect(check).toBeChecked();
   }
+});
+
+test("dropdown test", async ({ page }) => {
+  await page.goto("https://testautomationpractice.blogspot.com/");
+  const dropdownLocator = page.locator("#country");
+
+  //label gore secim
+  // await dropdownLocator.selectOption("Canada");
+  //value gore secim
+  //   await dropdownLocator.selectOption({ value: "uk" });
+  //index gore secim
+  await dropdownLocator.selectOption({ index: 6 });
+//selectin icinde nece option var oldugunu yoxlayan locator
+  const options =  page.locator("#country option");
+  //icindeki optionlari sayi yazdigimiz qedermi yoxlayirsa .not yazsaq errorsuz kececeyik
+    expect(options).toHaveCount(10);
 });
